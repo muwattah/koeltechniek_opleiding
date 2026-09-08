@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koeltechniek Quiz – Module 1 Basis</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Start scherm -->
+    <section id="start-screen" class="screen active">
+      <div class="card start-card">
+        <div class="logo">❄️</div>
+        <h1>Basis Koeltechniek</h1>
+        <p class="subtitle">Module 1 – Interactieve Quiz</p>
+        <p class="desc">
+          Test je kennis over warmtepompen, koelcyclus, log p,h-diagram, COP en meer.
+          Gebaseerd op de Odisee lesmodule.
+        </p>
+        <div class="stats-preview">
+          <div><strong>21</strong><span>vragen</span></div>
+          <div><strong>~15</strong><span>minuten</span></div>
+        </div>
+        <button id="start-btn" class="btn primary">Start quiz</button>
+      </div>
+    </section>
+
+    <!-- Quiz scherm -->
+    <section id="quiz-screen" class="screen">
+      <header class="quiz-header">
+        <div class="progress-info">
+          <span id="question-counter">Vraag 1 / 21</span>
+          <span id="score-live">Score: 0</span>
+        </div>
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </header>
+
+      <div class="card question-card">
+        <div id="question-category" class="category"></div>
+        <h2 id="question-text"></h2>
+        <div id="options-container" class="options"></div>
+        <div id="feedback" class="feedback hidden"></div>
+        <button id="next-btn" class="btn primary hidden">Volgende</button>
+      </div>
+    </section>
+
+    <!-- Resultaat scherm -->
+    <section id="result-screen" class="screen">
+      <div class="card result-card">
+        <div id="result-emoji" class="result-emoji">🎉</div>
+        <h1>Quiz afgerond!</h1>
+        <p id="result-score" class="result-score"></p>
+        <p id="result-message" class="result-message"></p>
+        <div class="result-actions">
+          <button id="restart-btn" class="btn primary">Opnieuw proberen</button>
+          <button id="review-btn" class="btn secondary">Bekijk antwoorden</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Review scherm -->
+    <section id="review-screen" class="screen">
+      <div class="card review-card">
+        <h1>Overzicht antwoorden</h1>
+        <div id="review-list" class="review-list"></div>
+        <button id="back-to-result" class="btn primary">Terug</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
