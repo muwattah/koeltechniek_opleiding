@@ -26,17 +26,17 @@
 </section>
 <section id="result" class="result" aria-live="polite"><h2>Zoek je naam hierboven</h2><p>De website toont een exacte overeenkomst, mogelijke namen of dat je naam nog niet in de gepubliceerde lijst staat.</p></section>
 <div class="meta"><article><span>Versie van de lijst</span><strong id="versie">—</strong></article><article><span>Laatst gecontroleerd</span><strong id="checked">—</strong></article><article><span>Aantal vermeldingen</span><strong id="aantal">—</strong></article></div>
-<p class="notice"><span class="label">Belangrijk:</span> Dit is een onafhankelijke zoekhulp, niet de overheid zelf. Een naam die ontbreekt, betekent niet automatisch dat er geen erkenning is. Controleer bij twijfel de <a href="https://erkenningen.omgeving.vlaanderen.be/erk-services/ws/rest/dataset/lijst/technici_koeltechniek.pdf" target="_blank" rel="noopener">officiële lijst</a>. Het bestand wordt normaal om de 3 uur opnieuw gecontroleerd als de GitHub-automatisering actief is.</p>
+<p class="notice"><span class="label">Belangrijk:</span> Dit is een onafhankelijke zoekhulp, niet de overheid zelf. Een naam die ontbreekt, betekent niet automatisch dat er geen erkenning is. Controleer bij twijfel de <a href="https://erkenningen.omgeving.vlaanderen.be/erk-services/ws/rest/dataset/lijst/technici_koeltechniek.pdf" target="_blank" rel="noopener">officiële lijst</a>. Het bestand wordt normaal om de 20 minuten opnieuw gecontroleerd als de GitHub-automatisering actief is.</p>
 </main>
 <footer>Gebaseerd op de openbare erkenningenlijst van de Vlaamse overheid · Geen cookies of registratie</footer>
 <script>
 (function(){
 const src="https://erkenningen.omgeving.vlaanderen.be/erk-services/ws/rest/dataset/lijst/technici_koeltechniek.pdf";
-const data=window.KOEL_DATA, output=document.getElementById("result"), input=document.getElementById("naam");
+let data=window.KOEL_DATA;const output=document.getElementById("result"), input=document.getElementById("naam");
 const normalize=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g,"").toUpperCase().replace(/[^A-Z0-9]+/g," ").trim().replace(/\s+/g," ");
 const key=s=>normalize(s).split(" ").sort().join("|");
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const records=(data&&Array.isArray(data.personen)?data.personen:[]).map(p=>({n:p[0],e:p[1],p:p[2],k:key(p[0]),t:normalize(p[0]),id:normalize(p[1])}));
+let records=(data&&Array.isArray(data.personen)?data.personen:[]).map(p=>({n:p[0],e:p[1],p:p[2],k:key(p[0]),t:normalize(p[0]),id:normalize(p[1])}));
 if(data){document.getElementById("versie").textContent=data.versie;document.getElementById("checked").textContent=data.gecontroleerd_op?new Date(data.gecontroleerd_op).toLocaleString("nl-BE"):"—";document.getElementById("aantal").textContent=records.length.toLocaleString("nl-BE")}
 else{output.innerHTML='<h2>Gegevens worden voorbereid</h2><p>De eerste automatische download is nog niet voltooid. Probeer later opnieuw of open de officiële PDF.</p>';}
 function card(x){return '<div class="person"><div><strong>'+esc(x.n)+'</strong><small>Erkenningsnummer: '+esc(x.e)+'</small></div><a href="'+src+'#page='+Number(x.p)+'" target="_blank" rel="noopener">Bekijk PDF-pagina '+Number(x.p)+' ↗</a></div>'}
@@ -45,14 +45,33 @@ if(!data)return;
 const raw=input.value.trim(),q=normalize(raw);
 if(q.length<2){output.className="result";output.innerHTML="<h2>Zoek je naam hierboven</h2><p>Vul minstens twee letters in.</p>";return}
 const exact=records.filter(x=>x.k===key(raw)||x.id===q);
-if(exact.length){output.className="result found";output.innerHTML="<h2>✓ Naam gevonden op de lijst!</h2><p>"+exact.length+" exacte "+(exact.length===1?"vermelding":"vermeldingen")+". Controleer het erkenningsnummer om zeker te zijn dat het over jou gaat.</p>"+exact.slice(0,30).map(card).join("");return}
+if(exact.length){output.className="result found";output.innerHTML="<h2>✓ Naam gevonden op de lijst!</h2><p>"+exact.length+" exacte "+(exact.length===1?"vermelding":"vermeldingen")+". Controleer het erkenningsnummer om zeker te zijn dat het over jou gaat.</p>"+exact.map(card).join("");return}
 const ts=q.split(" ");
 const candidates=records.filter(x=>x.t.includes(q)||x.id.includes(q)||ts.every(t=>x.t.split(" ").some(n=>n.startsWith(t))));
-if(candidates.length){output.className="result partial";output.innerHTML="<h2>Geen exacte overeenkomst</h2><p>Wel "+candidates.length+" mogelijke vermeldingen. Vul je volledige naam in voor een exacte controle.</p>"+candidates.slice(0,12).map(card).join("");return}
+if(candidates.length){output.className="result partial";output.innerHTML="<h2>Geen exacte overeenkomst</h2><p>Wel "+candidates.length+" mogelijke vermeldingen. Vul je volledige naam in voor een exacte controle.</p>"+candidates.map(card).join("");return}
 output.className="result missing";output.innerHTML="<h2>Naam niet gevonden</h2><p>Geen vermelding van <strong>"+esc(raw)+"</strong> in de laatst gecontroleerde lijst. Misschien heeft de overheid de lijst nog niet bijgewerkt.</p>"
 }
 document.getElementById("zoekform").addEventListener("submit",e=>{e.preventDefault();search();output.scrollIntoView({behavior:"smooth",block:"nearest"})});
 input.addEventListener("input",search);
+// Vernieuw de lijst in een open tab om de 20 minuten, zonder de ingevulde naam kwijt te raken.
+setInterval(()=>{
+ const el=document.createElement("script");
+ el.src="./data.js?vernieuwd="+Date.now();
+ el.onload=()=>{
+  const next=window.KOEL_DATA;
+  if(next&&Array.isArray(next.personen)){
+   data=next;
+   records=next.personen.map(p=>({n:p[0],e:p[1],p:p[2],k:key(p[0]),t:normalize(p[0]),id:normalize(p[1])}));
+   document.getElementById("versie").textContent=next.versie;
+   document.getElementById("checked").textContent=next.gecontroleerd_op?new Date(next.gecontroleerd_op).toLocaleString("nl-BE"):"—";
+   document.getElementById("aantal").textContent=records.length.toLocaleString("nl-BE");
+   if(input.value.trim().length>=2)search();
+  }
+  el.remove();
+ };
+ el.onerror=()=>el.remove();
+ document.head.appendChild(el);
+},20*60*1000);
 })();
 </script>
 </body></html>
