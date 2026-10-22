@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#083d55">
+<meta name="description" content="Controleer of je naam al voorkomt in de officiële Vlaamse lijst van erkende koeltechnici.">
+<title>Sta ik op de lijst? | Koeltechnici Vlaanderen</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#143244;background:#f3f7fa}*{box-sizing:border-box}body{margin:0}a{color:#007b97}header{max-width:1020px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:24px}header .brand{font-weight:850;color:#073c54;font-size:17px}header .brand span{color:#08a6af}.source-link{font-size:14px;font-weight:650;text-decoration:none}main{max-width:1020px;margin:auto;padding:0 24px 38px}.hero{border-radius:25px;background:linear-gradient(125deg,#07415b,#102f49 80%);color:#fff;padding:60px 50px 55px;position:relative;overflow:hidden}.hero:after{content:"❄";position:absolute;font-size:250px;color:#ffffff09;top:-80px;right:20px;pointer-events:none}.tag{font-size:12px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:#7bdfd5}.hero h1{font-size:clamp(38px,6vw,65px);line-height:1.08;letter-spacing:-.045em;margin:18px 0}.hero h1 em{font-style:normal;color:#6ee6d8}.hero p{line-height:1.6;font-size:16px;max-width:590px;color:#d6e6f0}.search-box{background:#fff;color:#123345;border-radius:18px;padding:27px;margin-top:34px;box-shadow:0 18px 36px #00192d2e;position:relative;z-index:1}label{display:block;font-size:15px;font-weight:800;margin-bottom:11px}.form-row{display:flex;gap:10px}input{min-width:0;flex:1;padding:17px;border:1.5px solid #d0dce2;border-radius:11px;font-size:17px;outline-color:#16aeb3}button{cursor:pointer;background:#08a59d;color:white;font-weight:800;border:none;border-radius:11px;padding:16px 21px;font-size:15px}button:hover{background:#078b84}.hint{color:#657c88;font-size:12px!important;margin:11px 0 0!important}.result{background:#fff;border:1px solid #e1eaf0;border-radius:20px;margin:24px 0;padding:29px;min-height:132px;box-shadow:0 3px 18px #0a36520a}.result h2{margin:0 0 9px;font-size:22px}.result p{color:#5e7280;margin:4px 0 12px;line-height:1.5}.result.found{border-left:7px solid #1aa575}.result.missing{border-left:7px solid #e8a645}.result.partial{border-left:7px solid #419fc0}.person{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;border-top:1px solid #e9eff2;padding:14px 0}.person strong{display:block;color:#193d52}.person small{color:#536c78}.person a{font-size:13px;font-weight:700}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.meta article{border:1px solid #e1e9ee;border-radius:14px;background:#fff;padding:18px}.meta span{display:block;color:#768b94;font-size:12px;margin-bottom:9px}.meta strong{font-size:17px;overflow-wrap:anywhere}.notice{line-height:1.65;color:#637986;font-size:13px;margin:24px 0}footer{padding:0 24px 34px;text-align:center;color:#69808c;font-size:12px}.label{font-weight:700;color:#158e8a}.error{color:#bd4d24}@media(max-width:700px){header{padding:18px 17px}main{padding:0 12px 24px}.hero{padding:38px 21px;border-radius:20px}.form-row{flex-direction:column}.search-box{padding:20px}.result{padding:23px 18px}.meta{grid-template-columns:1fr}.meta article{padding:15px}.hero:after{font-size:150px;top:-10px;right:-25px}}
+</style>
+<script defer src="./data.js"></script>
+</head>
+<body>
+<header><div class="brand"><span>❄</span> Koeltechniek · Erkenningenchecker</div><a class="source-link" href="https://erkenningen.omgeving.vlaanderen.be/erk-services/ws/rest/dataset/lijst/technici_koeltechniek.pdf" target="_blank" rel="noopener">Officiële PDF ↗</a></header>
+<main>
+<section class="hero">
+<div class="tag">Vlaamse erkenningenlijst · Automatische controle</div>
+<h1>Sta jij al op<br><em>de lijst?</em></h1>
+<p>Zoek je naam in de lijst van erkende koeltechnici in Vlaanderen. Je hoeft de PDF niet zelf te doorzoeken.</p>
+<form class="search-box" id="zoekform">
+<label for="naam">Jouw voornaam en achternaam</label>
+<div class="form-row"><input id="naam" type="search" placeholder="Bijvoorbeeld: Jan Peeters" autocomplete="name" autofocus><button type="submit">Controleer naam →</button></div>
+<p class="hint">Je mag de naam ook omgekeerd invullen of je erkenningsnummer zoeken. Je zoekopdracht blijft op je eigen toestel.</p>
+</form>
+</section>
+<section id="result" class="result" aria-live="polite"><h2>Zoek je naam hierboven</h2><p>De website toont een exacte overeenkomst, mogelijke namen of dat je naam nog niet in de gepubliceerde lijst staat.</p></section>
+<div class="meta"><article><span>Versie van de lijst</span><strong id="versie">—</strong></article><article><span>Laatst gecontroleerd</span><strong id="checked">—</strong></article><article><span>Aantal vermeldingen</span><strong id="aantal">—</strong></article></div>
+<p class="notice"><span class="label">Belangrijk:</span> Dit is een onafhankelijke zoekhulp, niet de overheid zelf. Een naam die ontbreekt, betekent niet automatisch dat er geen erkenning is. Controleer bij twijfel de <a href="https://erkenningen.omgeving.vlaanderen.be/erk-services/ws/rest/dataset/lijst/technici_koeltechniek.pdf" target="_blank" rel="noopener">officiële lijst</a>. Het bestand wordt normaal om de 3 uur opnieuw gecontroleerd als de GitHub-automatisering actief is.</p>
+</main>
+<footer>Gebaseerd op de openbare erkenningenlijst van de Vlaamse overheid · Geen cookies of registratie</footer>
+<script>
+(function(){
+const src="https://erkenningen.omgeving.vlaanderen.be/erk-services/ws/rest/dataset/lijst/technici_koeltechniek.pdf";
+const data=window.KOEL_DATA, output=document.getElementById("result"), input=document.getElementById("naam");
+const normalize=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g,"").toUpperCase().replace(/[^A-Z0-9]+/g," ").trim().replace(/\s+/g," ");
+const key=s=>normalize(s).split(" ").sort().join("|");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const records=(data&&Array.isArray(data.personen)?data.personen:[]).map(p=>({n:p[0],e:p[1],p:p[2],k:key(p[0]),t:normalize(p[0]),id:normalize(p[1])}));
+if(data){document.getElementById("versie").textContent=data.versie;document.getElementById("checked").textContent=data.gecontroleerd_op?new Date(data.gecontroleerd_op).toLocaleString("nl-BE"):"—";document.getElementById("aantal").textContent=records.length.toLocaleString("nl-BE")}
+else{output.innerHTML='<h2>Gegevens worden voorbereid</h2><p>De eerste automatische download is nog niet voltooid. Probeer later opnieuw of open de officiële PDF.</p>';}
+function card(x){return '<div class="person"><div><strong>'+esc(x.n)+'</strong><small>Erkenningsnummer: '+esc(x.e)+'</small></div><a href="'+src+'#page='+Number(x.p)+'" target="_blank" rel="noopener">Bekijk PDF-pagina '+Number(x.p)+' ↗</a></div>'}
+function search(){
+if(!data)return;
+const raw=input.value.trim(),q=normalize(raw);
+if(q.length<2){output.className="result";output.innerHTML="<h2>Zoek je naam hierboven</h2><p>Vul minstens twee letters in.</p>";return}
+const exact=records.filter(x=>x.k===key(raw)||x.id===q);
+if(exact.length){output.className="result found";output.innerHTML="<h2>✓ Naam gevonden op de lijst!</h2><p>"+exact.length+" exacte "+(exact.length===1?"vermelding":"vermeldingen")+". Controleer het erkenningsnummer om zeker te zijn dat het over jou gaat.</p>"+exact.slice(0,30).map(card).join("");return}
+const ts=q.split(" ");
+const candidates=records.filter(x=>x.t.includes(q)||x.id.includes(q)||ts.every(t=>x.t.split(" ").some(n=>n.startsWith(t))));
+if(candidates.length){output.className="result partial";output.innerHTML="<h2>Geen exacte overeenkomst</h2><p>Wel "+candidates.length+" mogelijke vermeldingen. Vul je volledige naam in voor een exacte controle.</p>"+candidates.slice(0,12).map(card).join("");return}
+output.className="result missing";output.innerHTML="<h2>Naam niet gevonden</h2><p>Geen vermelding van <strong>"+esc(raw)+"</strong> in de laatst gecontroleerde lijst. Misschien heeft de overheid de lijst nog niet bijgewerkt.</p>"
+}
+document.getElementById("zoekform").addEventListener("submit",e=>{e.preventDefault();search();output.scrollIntoView({behavior:"smooth",block:"nearest"})});
+input.addEventListener("input",search);
+})();
+</script>
+</body></html>
